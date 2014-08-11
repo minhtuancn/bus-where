@@ -3,7 +3,7 @@
 <div class="homepage-intro">
   <div class="content">
     <h1>Search buses near ...</h1>
-    <input type="text" placeholder="E.g; Bugis Junction">
+    <div class="searchBox"><input type="text" placeholder="E.g; Bugis Junction"></div>
     <p><span><a href="#">Or Search for buses near me</a></span></p>
   </div>
 </div>
@@ -13,19 +13,19 @@
   <ul>
     <li>
       <div class="colBox">
-        <h2>Search by Location</h2>
+        <h2>Search Location</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac nisi augue. Vestibulum ante ipsum primis in faucibus orci luctus et.</p>
       </div>
     </li>
     <li>
       <div class="colBox">
-        <h2>Search by Service No.</h2>
+        <h2>Search Service No.</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac nisi augue. Vestibulum ante ipsum primis in faucibus orci luctus et.</p>
       </div>
     </li>
     <li>
       <div class="colBox">
-        <h2>Search by Bus Stop No.</h2>
+        <h2>Search Bus Stop No.</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac nisi augue. Vestibulum ante ipsum primis in faucibus orci luctus et.</p>
       </div>
     </li>
@@ -60,4 +60,20 @@
     <div class="push">&nbsp;</div>
   </div>
 </div>
+
+<script>
+var fixmeTop = $('.searchBox').offset().top; // Get initial position
+$(window).scroll(function() {            // Assign scroll event listener
+    var currentScroll = $(window).scrollTop(); // Get current position
+    if (currentScroll >= fixmeTop) { // Make it fixed if you've scrolled to it
+        $('.searchBox').removeClass('staticSearch');
+        $('.searchBox').addClass('fixedSearch');
+        $('.searchBox input[type=text]').attr("placeholder", "Search buses near...");
+    } else {                       // Make it static if you scroll above
+        $('.searchBox').removeClass('fixedSearch');
+        $('.searchBox').addClass('staticSearch');
+        $('.searchBox input[type=text]').attr("placeholder", "E.g; Bugis Junction");
+    }
+});
+</script>
 {% endblock %}
