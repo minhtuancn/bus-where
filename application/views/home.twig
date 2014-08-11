@@ -3,7 +3,7 @@
 <div class="homepage-intro">
   <div class="content">
     <h1>Search buses near ...</h1>
-    <div class="searchBox"><input type="text" placeholder="E.g; Bugis Junction"></div>
+    <div class="searchBox"><input id="q" name="q" type="text" placeholder="E.g; Bugis Junction"></div>
     <p><span><a href="#">Or Search for buses near me</a></span></p>
   </div>
 </div>
@@ -62,6 +62,10 @@
 </div>
 
 <script>
+$(document).ready(function () {
+  $("#q").focus(); 
+});
+    
 var fixmeTop = $('.searchBox').offset().top; // Get initial position
 $(window).scroll(function() {            // Assign scroll event listener
     var currentScroll = $(window).scrollTop(); // Get current position
