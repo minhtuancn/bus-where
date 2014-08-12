@@ -43,6 +43,7 @@ class Api_Base
     
     // if not https, to fail the request
     if (!($_SERVER['HTTP_HOST']=='buswhere.dev') && HTTP_PROTOCOL=="http://"){
+      error_log($_SERVER['HTTP_HOST']);
       $this->_response('FAIL','Unsecured HTTP not supported',405003);
     }
     

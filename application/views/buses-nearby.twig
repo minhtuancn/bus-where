@@ -3,7 +3,7 @@
 <div class="content">
 
   {% if nearbyServicesList|default is empty %}
-  <h1>Sorry, we could't locate <strong>{{ place_search }}</strong></h1>
+  <h1>Sorry, we couldn't locate <strong>{{ place_search }}</strong></h1>
   {% else %}
   <h1><strong>{{ nearbyServicesList['count'] }}</strong> Bus Services near <strong>{{ placeData['name'] is defined? placeData['name']:' me' }}</strong></h1>
   
