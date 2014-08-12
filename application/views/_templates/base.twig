@@ -27,7 +27,7 @@
     <!-- Content, will be passed here via Twig --> 
     {% block content %} {% endblock %} </div>
 </div>
-<div id="footer"> {% include '_templates/footer.twig' %} </div>
+{% if subPage!='bus-stop-map' %}<div id="footer"> {% include '_templates/footer.twig' %} </div>{% endif %}
 <script src="js/vendor/retina.min.js"></script> 
 <script>
 function toggleMenuBar(){

@@ -37,15 +37,6 @@ class Home extends Controller
     ));
   }
 	
-  public function locationDirectory()
-  {
-    $this->render('location-directory', array(
-      'metaTitle' => '',
-      'metaDescription' => '',
-      'page' => 'location-directory'
-    ));
-  }
-	
   public function about()
   {		
     $this->render('about', array(
@@ -53,27 +44,5 @@ class Home extends Controller
       'metaDescription' => '',
       'page' => 'about',
     ));
-  }
-	
-  /**
-  * PAGE: item
-  * This method handles what happens when you move to http://yourproject/{item}
-  * This method was received from index() to check if the {item} really exists
-  * Only then should you display the item. Otherwise, mark it as an error page
-  */
-  private function displayItem($item)
-  {
-    // not needed for now
-    $this->displayError404();
-    
-    //$Item = new ItemModel();
-    //$itemData = $Item->selectItemData($item);
-    
-    //if (!$itemData) $this->displayError404();
-    /*$this->render('item', array(
-      'metaTitle' => 'Hello World',
-      'metaDescription' => 'Thank you for using php-mvc framework by mosufy',
-      'itemData' => $itemData
-    ));*/
   }
 }

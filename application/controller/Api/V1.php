@@ -50,7 +50,7 @@ class Api_V1 extends Api_Base
         /** /places/{id} **/
         $result = $Place->selectPlaceData($end1,$param);
       } else {
-        $this->_response('FAIL','Invalid listing id. Listing id must be an integer.',400003);
+        $this->_response('FAIL','Invalid Place ID. Place ID must be an integer.',400003);
       }
     } else if (isset($param['filter']['q'])){
       /** /places?q={name} **/
@@ -65,7 +65,7 @@ class Api_V1 extends Api_Base
   
   public function services($req=null,$end1=null,$end2=null,$end3=null)
   {
-    $allowed_params = array('distance');
+    $allowed_params = array('distance','lat','lon');
     
     if ($this->_params){
       foreach ($this->_params as $k=>$v){
@@ -91,12 +91,16 @@ class Api_V1 extends Api_Base
     
     $BusService = new BusServiceModel();
     
-    if (isset($end2)){
+    
+    if (isset($end1) && $end1=='radial'){
+      /** /services/radial **/
+      $result = $BusService->selectNearbyBusServicesList($end1,$param);
+    } else if (isset($end2)){
       if (is_numeric($end2)){
         /** /services/nearby/{id} **/
         $result = $BusService->selectNearbyBusServicesList($end2,$param);
       } else {
-        $this->_response('FAIL','Invalid listing id. Listing id must be an integer.',400005);
+        $this->_response('FAIL','Invalid Place ID. Place ID must be an integer.',400005);
       }
     } else {
       /** /services **/
@@ -139,7 +143,50 @@ class Api_V1 extends Api_Base
         /** /schedules/arrival_time/{bus_id}/{stop_id} **/
         $result = $BusSchedule->selectTimeToArrive($end2,$end3,$param);
       } else {
-        $this->_response('FAIL','Invalid listing id. Listing id must be an integer.',400005);
+        $this->_response('FAIL','Invalid Bus ID and/or Bus Stop ID.',400007);
+      }
+    } else {
+      /** /services **/
+      $result = $BusService->selectBusServicesList($param);
+    }
+    
+    $this->_response('OK',$result);
+  }
+  
+  public function bus_stops($req=null,$end1=null,$end2=null,$end3=null)
+  {
+    $allowed_params = array();
+    
+    if ($this->_params){
+      foreach ($this->_params as $k=>$v){
+        if (in_array($k,$allowed_params)){
+          if ($k=='fields'){
+            $param['fields'] = $v;
+          } else if ($k=='sort'){
+            $param['sort'] = $v;
+          } else if ($k=='limit'){
+            $param['limit'] = $v;
+          } else if ($k=='page'){
+            $param['page'] = $v;
+          } else {
+            $param['filter'][$k] = $v;
+          }
+        } else {
+          $this->_response('FAIL','Invalid parameters found in the request. Please check for valid parameters.',400008);
+        }
+      }
+    } else {
+      $param = null;
+    }
+    
+    $BusStop = new BusStopModel();
+    
+    if (isset($end1)){
+      if (is_numeric($end1)){
+        /** /bus_stops/{stop_id} **/
+        $result = $BusStop->selectBusStopData($end1,$param);
+      } else {
+        $this->_response('FAIL','Invalid Bus Stop ID. Bus Stop ID must be an integer.',400009);
       }
     } else {
       /** /services **/

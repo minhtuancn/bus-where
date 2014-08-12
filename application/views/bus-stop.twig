@@ -2,24 +2,28 @@
 {% block content %}
 <div class="content">
 
-  {% if nearbyServicesList|default is empty %}
-  <h1>Sorry, we could't locate <strong>{{ place_search }}</strong></h1>
+  {% if busStopData|default is empty %}
+  <h1>Sorry, no such Bus Stop found.</h1>
   {% else %}
-  <h1><strong>{{ nearbyServicesList['count'] }}</strong> Bus Services near <strong>{{ placeData['name'] is defined? placeData['name']:' me' }}</strong></h1>
+  <h1>Bus Stop No. <strong>{{ busStopData['bus_stopID'] }}</strong> - {{ busStopData['name'] }}, {{ busStopData['add_street'] }}</h1>
+  
+  <a href="bus-stop-directory/{{ busStopData['bus_stopID'] }}/map">See on map</a>
+  
+  <h2 class="title">{{ busStopData['services']['count'] }} Services at this Bus Stop</h2>
   
   <ul class="busTimings">
-    {% for k in nearbyServicesList['services'] %}
+    {% for k in busStopData['services']['services'] %}
     <li>
       <div class="right">
-        <div class="timeBox" id="{{ k['bus_serviceID'] }}_{{ k['bus_stopID'] }}">
+        <div class="timeBox" id="{{ k['bus_serviceID'] }}_{{ busStopData['bus_stopID'] }}">
           <div>Click for<br>
             arrival time</div>
         </div>
       </div>
       <div class="left">
         <h2><a href="bus-directory/{{ k['bus_serviceID'] }}">{{ k['bus_serviceID'] }}</a></h2>
-        <a href="bus-stop-directory/{{ k['bus_stopID'] }}">{{ k['bus_stopID'] }} - {{ k['name'] }}</a><br>
-        <a href="bus-stop-directory/{{ k['bus_stopID'] }}/map"><span>{{ k['distance'] }}km away - View on map</span></a>
+        First Bus: {{ k['time_firstBus']|date('H:i') }}h | Last Bus: {{ k['time_lastBus']|date('H:i') }}h</a><br>
+        <span>From: {{ k['from'] }} | Destination {{ k['to'] }}</span>
       </div>
       <div class="push"></div>
     </li>

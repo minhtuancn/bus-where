@@ -1,0 +1,38 @@
+{% extends "_templates/base.twig" %}
+{% block content %}
+<div id="map-canvas" class="map"></div>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvPM6vk6dB7qC72xitEzeyrYpMXLb_5qs"></script>
+<script type="text/javascript">
+  function initialize(){
+    var myLatlng = new google.maps.LatLng({{ busStopData['lat'] }}, {{ busStopData['lon'] }});
+    
+    var mapOptions = {
+      center: myLatlng,
+      zoom: 17
+    };
+    
+    var map = new google.maps.Map(
+      document.getElementById("map-canvas"),
+      mapOptions
+    );
+    
+    var contentString = '<strong>Bus Stop No. {{ busStopData['bus_stopID'] }} - {{ busStopData['name'] }}</strong><br>Services Available:<br><ul>'
+    +'{% for k in busStopData['services']['services'] %}<li>{{ k['bus_serviceID'] }}</li> {% endfor %}</ul><div class="push"></div>'
+    +'<a href="bus-stop-directory/{{ busStopData['bus_stopID'] }}">See Timings</a>';
+    
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    
+    var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: 'Bus Stop No. {{ busStopData['bus_stopID'] }} - {{ busStopData['name'] }}'
+    });
+    
+    infowindow.open(map,marker);
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+{% endblock %}

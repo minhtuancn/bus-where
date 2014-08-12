@@ -21,11 +21,16 @@ class BusServiceModel extends Model
       
       $dist = intval($param['filter']['distance']);
       
-      // get coords of placeID
-      $Place = new PlaceModel();
-      $place_coord = $Place->selectPlaceCoords($placeID);
-      $lat = $place_coord['lat'];
-      $lon = $place_coord['lon'];
+      if ($placeID=='radial'){
+        $lat = $param['filter']['lat'];
+        $lon = $param['filter']['lon'];
+      } else {
+        // get coords of placeID
+        $Place = new PlaceModel();
+        $place_coord = $Place->selectPlaceCoords($placeID);
+        $lat = $place_coord['lat'];
+        $lon = $place_coord['lon'];
+      }
       
 			$this->connectDB();
 			$stmt = $this->db->prepare('
