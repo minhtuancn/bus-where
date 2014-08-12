@@ -42,7 +42,7 @@ class Api_Base
     $this->reBuildRequestUrl($this->_request);
     
     // if not https, to fail the request
-    if (!($_SERVER['HTTP_HOST']=='buswhere.dev') && HTTP_PROTOCOL=="http://"){
+    if (!($_SERVER['HTTP_HOST']=='buswhere.dev' || $_SERVER['HTTP_HOST']=='buswhere.mosufy.com') && HTTP_PROTOCOL=="http://"){
       error_log($_SERVER['HTTP_HOST']);
       $this->_response('FAIL','Unsecured HTTP not supported',405003);
     }
