@@ -9,7 +9,7 @@ class Api_Base
   protected $_requestUrl;					// Request URL parameters
   
   public function __construct()
-  {error_log($_SERVER['HTTP_HOST']);
+  {
     header("Access-Control-Allow-Orgin: *");
     header("Access-Control-Allow-Methods: *");
     header("Content-Type: application/json");
@@ -42,8 +42,8 @@ class Api_Base
     $this->reBuildRequestUrl($this->_request);
     
     // if not https, to fail the request
-    if (!($_SERVER['HTTP_HOST']=='buswhere.dev' || $_SERVER['HTTP_HOST']=='buswhere.mosufy.com') && HTTP_PROTOCOL=="http://"){
-      error_log($_SERVER['HTTP_HOST']);
+    if (!($_SERVER['HTTP_HOST']=='buswhere.dev') && HTTP_PROTOCOL=="http://"){
+      error_log(HTTP_PROTOCOL);
       $this->_response('FAIL','Unsecured HTTP not supported',405003);
     }
     
