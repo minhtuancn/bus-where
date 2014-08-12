@@ -14,9 +14,7 @@ class BusStopServiceModel extends Model
 				$key = MEM.'selectServicesList'.$bus_stopID;
 				$cache_result = array();
 				$cache_result = $this->_memcache->get($key);
-				if ($cache_result['param'] == json_encode($param)){
-          $data = $cache_result['data'];
-        }
+        return $cache_result['data'];
 			}
       
 			$this->connectDB();
