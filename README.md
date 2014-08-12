@@ -38,7 +38,7 @@ Intallation
 --------------
 1. Create config.php from sample.config.php in /application/config/
 2. Run Composer to install dependencies
-3. Ensure /application/tmp/ directories and child directories give write-permission to apache
+3. Ensure /application/tmp/ directories and child directories given write-permission to apache
 4. Install MySQL database using /application/_install/1-create-and-insert-table-into-db.sql
 
 API references
@@ -57,7 +57,7 @@ Signature validation
   
 Fetch bus stop data with bus services list
 
-    [GET] /v1/bus_stops/`bus_stopID`
+    [GET] /v1/bus_stops/{bus_stopID}
   
 Search for place by name (ASCII characters only)
 
@@ -65,16 +65,16 @@ Search for place by name (ASCII characters only)
   
 Fetch place data
 
-    [GET] /v1/places/`placeID`
+    [GET] /v1/places/{placeID}
   
 Fetch list of bus services near place_id
 
-    [GET] /v1/services/nearby/`placeID`?distance=`int_in_km`
+    [GET] /v1/services/nearby/{placeID}?distance={int_in_km}
   
 Fetch list of bus services near your location
 
-    [GET] /v1/services/radial?lat=`latitude`&lon=`longitude`
+    [GET] /v1/services/radial?lat={latitude}&lon={longitude}
   
 Fetch next bus arrival time in minutes
 
-    [GET] /v1/schedules/arrival_time/`bus_serviceID`/`bus_stopID`
+    [GET] /v1/schedules/arrival_time/{bus_serviceID}/{bus_stopID}
