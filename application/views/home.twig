@@ -3,13 +3,17 @@
 <div class="homepage-intro">
   <div class="content">
     <h1>Search buses near ...</h1>
-    <div class="searchBox"><input id="q" name="q" type="text" placeholder="E.g; Bugis Junction"></div>
+    <div class="searchBox">
+      <form id="form_busesNearby" action="buses-nearby" method="get" enctype="application/x-www-form-urlencoded" onSubmit="return validateForm(this.id);">
+        <input id="q" name="q" type="text" placeholder="E.g; Bugis Junction">
+      </form>
+    </div>
     <p><span><a href="#">Or Search for buses near me</a></span></p>
   </div>
 </div>
 
 <div class="content colBoxes">
-  <h1>Millions of people have found the right bus to their next destination.</h1>
+  <h1 style="text-align:center;">Millions of people have found the right bus to their next destination.</h1>
   <ul>
     <li>
       <div class="colBox">
@@ -79,5 +83,23 @@ $(window).scroll(function() {            // Assign scroll event listener
         $('.searchBox input[type=text]').attr("placeholder", "E.g; Bugis Junction");
     }
 });
+
+function validateForm(formID){
+  var error = 0;
+  
+  if (trim($('#'+formID+' #q').val())==''){
+    $('#'+formID+' #q').addClass('error');
+    error+=1;
+  }
+  
+  if (error>0){
+    return false;
+  } else {
+    return true;
+  }
+}
+function trim(str){
+  return str.replace(/^\s+|\s+$/g,"");
+}
 </script>
 {% endblock %}

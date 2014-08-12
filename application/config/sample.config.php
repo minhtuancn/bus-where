@@ -51,3 +51,9 @@ define('URL', HTTP_PROTOCOL . $_SERVER['HTTP_HOST'] . '/');
 define('PATH_VIEWS', 'application/views');
 define('PATH_VIEW_FILE_TYPE', '.twig');
 define('PATH_VIEW_TWIG_CACHE', 'application/tmp/cache');
+
+/**
+ * Configuration to connect to BusWhere API
+ */
+define('BUSWHERE_ACCESS_KEY', 'z8eJE8Mcav8MI9LyRHTFfwfaa73VV4TR');
+define('BUSWHERE_SECRET_KEY', 'qbJ4T9Ag8qpviVI2DtR2rQWQhMVTk50siHS27g4U7JVnS4VY7sgJws8AXMbzzUKz');

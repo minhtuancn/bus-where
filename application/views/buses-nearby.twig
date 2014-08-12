@@ -1,0 +1,62 @@
+{% extends "_templates/base.twig" %}
+{% block content %}
+<div class="content">
+  <h1><strong>{{ nearbyServicesList['count'] }}</strong> Bus Services near <strong>{{ placeData['name'] }}</strong></h1>
+  
+  <ul class="busTimings">
+    {% for k in nearbyServicesList['services'] %}
+    <li>
+      <div class="right">
+        <div class="timeBox" id="{{ k['bus_serviceID'] }}_{{ k['bus_stopID'] }}">
+          <div>Click for<br>
+            arrival time</div>
+        </div>
+      </div>
+      <div class="left">
+        <h2>{{ k['bus_serviceID'] }}</h2>
+        {{ k['bus_stopID'] }} - {{ k['name'] }}<br>
+        <span>{{ k['distance'] }}km away - View on map</span>
+      </div>
+      <div class="push"></div>
+    </li>
+    {% endfor %}
+</div>
+
+<script>
+$.fn.preload = function() {
+    this.each(function(){
+        $('<img/>')[0].src = this;
+    });
+}
+$(['img/ajax-loader.gif']).preload();
+
+$('.timeBox').click(function(){
+  var boxID = this.id;
+  var boxIDArr = boxID.split('_');
+  
+  $('#'+boxID).html('<img src="img/ajax-loader.gif">');
+ 
+  $.ajax({
+    url: "buses-nearby/ajax_getBusTiming",
+    type: "GET",
+    dataType: "json",
+    data: {
+      busID: boxIDArr[0],
+      stopID: boxIDArr[1]
+    },
+    success: function(data, json, jqXHR){
+      // success
+      var time=data.time;
+      if (data.time!='NA'){
+         time = '<span>'+time+'</span>';
+      }
+      
+      $('#'+boxID).html(time);
+    },
+    error: function (jqXHR, textStatus, errorThrown){
+      // error
+    }
+  });
+});
+</script>
+{% endblock %}
