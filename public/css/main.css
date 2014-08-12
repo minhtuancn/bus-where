@@ -12,7 +12,6 @@ a {
 h1 {
   font-size: 56px;
   font-weight: 300;
-  text-align: center;
   color: #2b3847;
   padding:40px 0 20px;
 }
@@ -55,10 +54,6 @@ input[type=submit]:hover, input[type=button]:hover, .button:hover {
 input[type=checkbox] {
   -webkit-appearance: checkbox;
   width: auto;
-}
-input.error {
-  border-color: #D00003;
-  display: block;
 }
 #wrapper {
   min-height: 100%;
@@ -139,6 +134,7 @@ input.error {
 }
 .content.pageError h1 {
   font-size: 200px;
+  text-align:center;
   line-height: 0;
   font-weight: 900;
   color: #CCCCCC;
@@ -194,7 +190,6 @@ input.error {
   font-weight:800;
   margin-top:150px;
   margin-bottom:20px;
-  text-align:left;
 }
 .homepage-intro input[type=text] {
   width:100%;
@@ -207,6 +202,9 @@ input.error {
   background-position:left;
   background-repeat:no-repeat;
   margin-bottom:70px;
+}
+.homepage-intro input[type=text].error {
+  border-color:#FF0004 !important;
 }
 .homepage-intro p span {
   background-image: url(../img/overlay-50opacity.png);
@@ -236,7 +234,6 @@ input.error {
   padding-bottom:100px;
 }
 .homepage-downloadnow h1 {
-  text-align:left;
   margin-top:0;
   padding-top:100px;
   font-weight:700;
@@ -319,6 +316,59 @@ input.error {
 .staticSearch {
   position:static;
 }
+  
+.busTimings, .busTimings li {
+  padding:0;
+  margin:0;
+  list-style-type:none;
+}
+.busTimings .right {
+  width:100px;
+  height:70px;
+  background-color:#000;
+  border-radius:10px;
+  float:right;
+}
+.busTimings h2 {
+  font-size:56px !important;
+  font-weight:800;
+  line-height:48px;
+  margin:0;
+  padding:0 0 5px;
+}
+.busTimings .left {
+  line-height:18px;
+}
+.busTimings .left span {
+  font-size:14px;
+  font-weight:300;
+}
+.busTimings li {
+  margin-bottom:10px;
+  padding-bottom:10px;
+  border-bottom:1px solid #DFDFDF;
+}
+.busTimings .timeBox {
+  padding:10px;
+  color:#FFF;
+  font-size:48px;
+  line-height:48px;
+  font-weight:800;
+  text-align:center;
+  cursor:pointer;
+}
+.busTimings .timeBox div {
+  font-size:11px;
+  line-height:14px;
+  font-weight:300;
+  margin-top:12px;
+}
+.busTimings .timeBox span {
+  color:#22FF00;
+}
+.busTimings .timeBox img {
+  margin-top:-5px;
+}
 
 /* Anything bigger than the smallest laptop screen ----------- */
 @media only screen and (min-width : 1024px) {
@@ -386,6 +436,8 @@ input.error {
     font-size:16px;
   }
   .content {
+    margin-left: 10px;
+    margin-right: 10px;
     width: auto;
   }
   .content.nav {
@@ -433,6 +485,9 @@ input.error {
   }
   .homepage-intro p span {
     font-size:18px;
+  }
+  #main .content {
+    padding-top:10px;
   }
   .colBoxes li {
     text-align: justify;

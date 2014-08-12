@@ -29,4 +29,37 @@ class Controller
       'metaDescription' => 'The page you\'re looking for may have been moved or deleted'	
     ));
   }
+  
+	protected function getAPIResults($endpoint, $method)
+	{
+		try {			
+			$base_url = 'http://buswhere.dev/api';
+      $access_key = BUSWHERE_ACCESS_KEY;
+      $secret_key = BUSWHERE_SECRET_KEY;
+			
+			$timestamp = time();
+			$hash = hash_hmac('sha256', $endpoint . $method . $access_key . $timestamp, $secret_key);
+			$url = $base_url . $endpoint . ((strpos($endpoint,'?') !== false)? '&':'?') . 'access_key=' . $access_key . '&timestamp=' . $timestamp . '&hash=' . $hash;
+      
+			$ch = curl_init();  
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$output=curl_exec($ch);
+			curl_close($ch);
+			
+			$output = json_decode($output,true);
+      
+			if ($output['status']=='OK'){
+				return $output['response'];
+			} else {
+				error_log("API Error[Code: \"". $output['code'] ."\". Message: \"". $output['message']."\". Detail: \"". $output['message_detail']."\" Request: \"". $output['request']."]");
+				return false;
+			}
+		} catch (Exception $e){
+			error_log("File: \"". $e->getFile() ."\" Line: \"". $e->getLine()."\" Message: \"". $e->getMessage()."\"");
+			return false;
+		}
+	}
 }
