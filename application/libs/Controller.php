@@ -50,6 +50,8 @@ class Controller
 			curl_close($ch);
 			
 			$output = json_decode($output,true);
+      echo '<pre>';
+      print_r($output);exit;
       
 			if ($output['status']=='OK'){
 				return $output['response'];
