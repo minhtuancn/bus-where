@@ -12,9 +12,11 @@ class BusStopServiceModel extends Model
 		try {			
 			if ($this->_memcache){
 				$key = MEM.'selectServicesList'.$bus_stopID;
-				$cache_result = array();$this->_memcache->delete($key);
+				$cache_result = array();//$this->_memcache->delete($key);
 				$cache_result = $this->_memcache->get($key);
-        return $cache_result;
+        if ($cache_result){
+          return $cache_result;
+        }
 			}
       
 			$this->connectDB();
