@@ -47,34 +47,34 @@ Base URL
 
     https://buswhere.mosufy.com/api
 
-**[GET]** Check LIVE status of app
+Check LIVE status of app
 
-    /v1/ping
+    [GET] /v1/ping
   
-**[GET]** Signature validation
+Signature validation
 
-    /v1/check
+    [GET] /v1/check
   
-**[GET]** Fetch bus stop data with bus services list
+Fetch bus stop data with bus services list
 
-    /v1/bus_stops/{stop_id}
+    [GET] /v1/bus_stops/`bus_stopID`
   
-**[GET]** Search for place by name (ASCII characters only)
+Search for place by name (ASCII characters only)
 
-    /v1/places?q={name}%20{of}%20{place}
+    [GET] /v1/places?q=name%20of%20place
   
-**[GET]** Fetch place data
+Fetch place data
 
-    /v1/places/{place_id}
+    [GET] /v1/places/`placeID`
   
-**[GET]** Fetch list of bus services near place_id
+Fetch list of bus services near place_id
 
-    /v1/services/nearby/{place_id}?distance={int_in_km}
+    [GET] /v1/services/nearby/`placeID`?distance=`int_in_km`
   
-**[GET]** Fetch list of bus services near your location
+Fetch list of bus services near your location
 
-    /v1/services/radial?lat={latitude}&lon={longitude}
+    [GET] /v1/services/radial?lat=`latitude`&lon=`longitude`
   
-**[GET]** Fetch next bus arrival time in minutes
+Fetch next bus arrival time in minutes
 
-    /v1/schedules/arrival_time/{bus_id}/{stop_id}
+    [GET] /v1/schedules/arrival_time/`bus_serviceID`/`bus_stopID`
