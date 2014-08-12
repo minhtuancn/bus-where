@@ -1,103 +1,58 @@
-PHP-MVC Barebone Framework
+Bus Where app
 ==============
-
 
 In Summary
 --------------
-Provides basic, barebone essentials to run a project quickly.
+Full Stack app that can:
 
-Live example: [http://php-mvc.mohdsufiyan.com/](http://php-mvc.mohdsufiyan.com/)
+1. have an interface to search for buses near an area
+2. know when the buses arrive at a specific bus stop from an API
 
+*Bus timings, locations in this project are fake and is meant for evaluation and educational purposes only*.
 
-Why use this framework over others
+Live example: [https://buswhere.mosufy.com/](https://buswhere.mosufy.com/)
+
+Technology used
 --------------
-- Flexible Controller
-- User-friendly URLs
-- Utilizes Composer to install dependancies
-- Uses Twig with cache as a templating engine
-- Seperation of concerns (like other MVC Frameworks)
-- Utilizes Memcached (optional)
-- Utilizes PHP PDO for prepared statement
-- Simple, straight-forward, as per needs basis approach
-- Built-in responsive design (follow the sample /application/views/ folder for inspiration
+- Amazon Linux AMI
+- Apache 2.4
+- PHP 5.5
+- MySQL 5.5
+- Service-Oriented Architecture (RESTful API)
+- HTTP API Authentication using HMAC (hash) with timestamp validation
 
-Flexible Controller
+Intallation
 --------------
-There are many ways that you can approach when designing your project depending on your requirement. Use the different scenarios without having to change any settings.
+1. Create config.php from sample.config.php in /application/config/
+2. Run Composer to install dependencies
+3. Ensure /application/tmp/ directories and child directories give write-permission to apache
+4. Install MySQL database using /application/_install/1-create-and-insert-table-into-db.sql
 
-**Scenario 1:**
-You just need to create a simple 5-page static website with just a single Controller to display 5 seperate pages. This can be easily achieved by having multiple methods in your application/controller/home.php as such:
-	
-	// URL: http://www.projectname.com/
-	public function index()
-    {
-        $this->render('home', array(
-			'metaTitle' => 'Hello World',
-			'metaDescription' => 'This is the homepage'
-		));
-	}
-	
-	// URL: http://www.projectname.com/about-us/
-	public function aboutUs()
-    {
-        $this->render('about-us', array(
-			'metaTitle' => 'About Us page',
-			'metaDescription' => 'This is the About Us page'
-		));
-	}
-	
-	// URL: http://www.projectname.com/our-services/
-	public function ourServices()
-    {
-        $this->render('our-services', array(
-			'metaTitle' => 'Our Services page',
-			'metaDescription' => 'This is the Our Services page'
-		));
-	}
-
-By using this approach, you just need a single Controller to display 5 Views.
-
-**Scenario 2:**
-Every page holds unique content and you need to seperate the Controllers. This can be easily achieved by simply creating multiple Controllers, each calling its own View as such:
-
-Controller 1: home.php
-	
-	// URL: http://www.projectname.com/
-	public function index()
-    {
-        $this->render('home', array(
-			'metaTitle' => 'Hello World',
-			'metaDescription' => 'This is the homepage'
-		));
-	}
-
-Controller 2: aboutUs.php
-	
-	// URL: http://www.projectname.com/about-us/
-	public function index()
-    {
-        $this->render('about-us', array(
-			'metaTitle' => 'About Us page',
-			'metaDescription' => 'This is the About Us page'
-		));
-	}
-	
-Controller 3: ourServices.php
-	
-	// URL: http://www.projectname.com/our-services/
-	public function index()
-    {
-        $this->render('our-services', array(
-			'metaTitle' => 'Our Services page',
-			'metaDescription' => 'This is the Our Services page'
-		));
-	}
-
-By using this approach, each "page" request has its own methods. This would be great for complex applications.
-	
-User-friendly URLs sample
+API references
 --------------
-	http://www.projectname.com/
-	http://www.projectname.com/men/
-	http://www.projectname.com/men/clothes/
-	http://www.projectname.com/Basic-Short-Sleeve-Shirt-325
+Base URL
+  https://buswhere.mosufy.com/api
+
+[GET] Check LIVE status of app
+  /v1/ping
+  
+[GET] Signature validation
+  /v1/check
+  
+[GET] Fetch bus stop data with bus services list
+  /v1/bus_stops/{stop_id}
+  
+[GET] Search for place by name (ASCII characters only)
+  /v1/places?q={name}%20{of}%20{place}
+  
+[GET] Fetch place data
+  /v1/places/{place_id}
+  
+[GET] Fetch list of bus services near place_id
+  /v1/services/nearby/{place_id}?distance={int_in_km}
+  
+[GET] Fetch list of bus services near your location
+  /v1/services/radial?lat={latitude}&lon={longitude}
+  
+[GET] Fetch next bus arrival time in minutes
+  /v1/schedules/arrival_time/{bus_id}/{stop_id}
