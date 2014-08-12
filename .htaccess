@@ -8,15 +8,10 @@ RewriteEngine On
 # Disallows others to look directly into /public/ folder
 Options -Indexes
 
-# Forces https connections only for www.domain.com
-RewriteCond %{HTTP_HOST} ^www\.domain\.com$ [NC]
-RewriteCond %{HTTPS} !=on
-RewriteRule ^(.*)$ https://www.domain.com/$1 [R=301,L]
-
 # Forces https connections only for domain.com
-RewriteCond %{HTTP_HOST} ^domain\.com [NC]
+RewriteCond %{HTTP_HOST} ^buswhere\.mosufy\.com [NC]
 RewriteCond %{HTTPS} !=on
-RewriteRule ^(.*)$ https://www.domain.com/$1 [R=301,L]
+RewriteRule ^(.*)$ https://buswhere\.mosufy\.com/$1 [R=301,L]
 
 # General rewrite rules
 RewriteCond %{REQUEST_FILENAME} !-d
