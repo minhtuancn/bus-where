@@ -33,7 +33,7 @@ class Controller
 	protected function getAPIResults($endpoint, $method)
 	{
 		try {			
-			$base_url = 'http://buswhere.dev/api';
+			$base_url = BUSWHERE_API;
       $access_key = BUSWHERE_ACCESS_KEY;
       $secret_key = BUSWHERE_SECRET_KEY;
 			
