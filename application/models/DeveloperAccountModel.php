@@ -42,7 +42,7 @@ class DeveloperAccountModel extends Model
 	public function selectSecretKey($access_key)
 	{
 		if ($this->_memcache){
-			$key = PROJ.'selectSecretKey'.$access_key;
+			$key = MEM.'selectSecretKey'.$access_key;
 			$cache_result = array();
 			$cache_result = $this->_memcache->get($key);
 			if ($cache_result){
