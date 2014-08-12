@@ -12,9 +12,9 @@ class BusStopServiceModel extends Model
 		try {			
 			if ($this->_memcache){
 				$key = MEM.'selectServicesList'.$bus_stopID;
-				$cache_result = array();
+				$cache_result = array();$this->_memcache->delete($key);
 				$cache_result = $this->_memcache->get($key);
-        return $cache_result['data'];
+        return $cache_result;
 			}
       
 			$this->connectDB();
@@ -31,14 +31,14 @@ class BusStopServiceModel extends Model
 			$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
       
       if ($data){        
-        $results['data']['count'] = count($data);
-        $results['data']['services'] = $data;
+        $results['count'] = count($data);
+        $results['services'] = $data;
       } else {
-        $results['data'] = null;
+        $results = null;
       }
   
 			if ($this->_memcache) $this->_memcache->set($key, $results, 3600);
-			return $results['data'];
+			return $results;
 		} catch (Exception $e){
 			error_log("File: \"". $e->getFile() ."\" Line: \"". $e->getLine()."\" Message: \"". $e->getMessage()."\"");
 			return false;
