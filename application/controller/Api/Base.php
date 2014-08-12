@@ -9,7 +9,7 @@ class Api_Base
   protected $_requestUrl;					// Request URL parameters
   
   public function __construct()
-  {
+  {error_log($_SERVER['HTTP_HOST']);
     header("Access-Control-Allow-Orgin: *");
     header("Access-Control-Allow-Methods: *");
     header("Content-Type: application/json");
