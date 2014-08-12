@@ -18,9 +18,7 @@ class Home extends Controller
 	 * $item is a variable that gets passed along when you move to http://yourproject/{item}
    */
   public function index($item=null)
-  {
-    if (!empty($item)) $this->displayItem($item);
-    
+  {    
     // Passes the following information to Controller->render() to render the view for the page
     $this->render('home', array(
       'metaTitle' => 'BusWhere - Search buses near you!',
