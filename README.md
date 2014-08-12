@@ -1,6 +1,3 @@
-Bus Where app
-==============
-
 In Summary
 --------------
 Full Stack app that can:
@@ -10,16 +7,28 @@ Full Stack app that can:
 
 *Bus timings, locations in this project are fake and is meant for evaluation and educational purposes only*.
 
-Live example: [https://buswhere.mosufy.com/](https://buswhere.mosufy.com/)
+**Live example: [https://buswhere.mosufy.com/](https://buswhere.mosufy.com/)**
 
-Technology used
+Technology Stack
 --------------
 - Amazon Linux AMI
 - Apache 2.4
 - PHP 5.5
 - MySQL 5.5
-- Service-Oriented Architecture (RESTful API)
-- HTTP API Authentication using HMAC (hash) with timestamp validation
+- Back-end
+    - Custom PHP MVC (https://github.com/mosufy/php-mvc)
+    - Composer
+    - Search-engine-friendly URL structure
+    - Memcached
+    - Service-oriented Architecture (RESTful API)
+    - HTTP API Authentication using HMAC (hash) with timestamp validation
+- Front-end
+    - HTML
+    - CSS
+    - CSS Media Queries
+    - JQuery
+    - AJAX
+    - Responsive Design
 
 Intallation
 --------------
@@ -31,28 +40,28 @@ Intallation
 API references
 --------------
 Base URL
-  https://buswhere.mosufy.com/api
+    https://buswhere.mosufy.com/api
 
-[GET] Check LIVE status of app
-  /v1/ping
+**[GET]** Check LIVE status of app
+    /v1/ping
   
-[GET] Signature validation
-  /v1/check
+**[GET]** Signature validation
+    /v1/check
   
-[GET] Fetch bus stop data with bus services list
-  /v1/bus_stops/{stop_id}
+**[GET]** Fetch bus stop data with bus services list
+    /v1/bus_stops/{stop_id}
   
-[GET] Search for place by name (ASCII characters only)
-  /v1/places?q={name}%20{of}%20{place}
+**[GET]** Search for place by name (ASCII characters only)
+    /v1/places?q={name}%20{of}%20{place}
   
-[GET] Fetch place data
-  /v1/places/{place_id}
+**[GET]** Fetch place data
+    /v1/places/{place_id}
   
-[GET] Fetch list of bus services near place_id
-  /v1/services/nearby/{place_id}?distance={int_in_km}
+**[GET]** Fetch list of bus services near place_id
+    /v1/services/nearby/{place_id}?distance={int_in_km}
   
-[GET] Fetch list of bus services near your location
-  /v1/services/radial?lat={latitude}&lon={longitude}
+**[GET]** Fetch list of bus services near your location
+    /v1/services/radial?lat={latitude}&lon={longitude}
   
-[GET] Fetch next bus arrival time in minutes
-  /v1/schedules/arrival_time/{bus_id}/{stop_id}
+**[GET]** Fetch next bus arrival time in minutes
+    /v1/schedules/arrival_time/{bus_id}/{stop_id}
