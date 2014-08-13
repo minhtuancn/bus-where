@@ -46,5 +46,46 @@ class BusScheduleModel extends Model
 			return false;
 		}
 	}
+	
+	public function populateBusSchedule()
+	{
+		try {
+      // fetch list of bus services
+      $busStopService = new BusStopServiceModel();
+      $busStopServicesArr = $busStopService->selectBusStopServicesArray();
+      
+      $this->connectDB();
+      $this->db->beginTransaction();      
+      
+      // get 10min interval of time from 5am to 12mn and date from 13Aug to 17Aug and populate with stopServiceID
+      foreach ($busStopServicesArr as $k){
+        $schedule = array();
+        $syntax = '';
+        for ($x=13;$x<=17;$x++){
+          for ($i=5;$i<24;$i++){
+            for ($j=0;$j<60;$j+=10){
+              $syntax .= '(?,?),';
+              $schedule[] = $k;
+              $schedule[] = '2014-08-'.$x.' '.str_pad($i, 2, '0', STR_PAD_LEFT).':'.str_pad($j, 2, '0', STR_PAD_LEFT).':00';
+            }
+          }
+        }
+        $syntax = rtrim($syntax,',');
+        
+        $stmt = $this->db->prepare('
+          INSERT IGNORE INTO bus_schedules(bus_stopServiceID,arrivalTime)
+          VALUES'.$syntax.'
+        ');
+        $stmt->execute($schedule);
+      }
+      
+      $this->db->commit();
+			return true;
+		} catch (Exception $e){
+      $this->db->rollBack();
+			error_log("File: \"". $e->getFile() ."\" Line: \"". $e->getLine()."\" Message: \"". $e->getMessage()."\"");
+			return false;
+		}
+	}
 }
 ?>

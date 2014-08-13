@@ -46,5 +46,32 @@ class BusStopServiceModel extends Model
 			return false;
 		}
 	}
+	
+	public function selectBusStopServicesArray()
+	{
+		try {			
+			if ($this->_memcache){
+				$key = MEM.'selectBusStopServicesArray';
+				$cache_result = array();//$this->_memcache->delete($key);
+				$cache_result = $this->_memcache->get($key);
+        if ($cache_result){
+          return $cache_result;
+        }
+			}
+      
+			$this->connectDB();
+			$stmt = $this->db->query('
+				SELECT SS.bus_stopServiceID
+        FROM bus_StopsServices SS
+			');
+			$data = $stmt->fetchAll(PDO::FETCH_COLUMN);
+  
+			if ($this->_memcache) $this->_memcache->set($key, $data, 1800);
+			return $data;
+		} catch (Exception $e){
+			error_log("File: \"". $e->getFile() ."\" Line: \"". $e->getLine()."\" Message: \"". $e->getMessage()."\"");
+			return false;
+		}
+	}
 }
 ?>
